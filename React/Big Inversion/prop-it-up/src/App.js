@@ -6,8 +6,8 @@ import PersonCard from './comonents/PersonCard';
 function App() {
   return (
     <div className="App">
-      <PersonCard firstName={"Doe"} lastName={"Jane"} age ={45} hairColor={"Black"}/>
-      <PersonCard firstName={"Smith"} lastName={"Jane"} age ={35} hairColor={"Black"}/>
+      <PersonCard firstName={"Jane"} lastName={"Doe"} age ={45} hairColor={"Black"}/>
+      <PersonCard firstName={"Jane"} lastName={"Smith"} age ={35} hairColor={"Black"}/>
       <PersonCard firstName={"Fillmare"} lastName={"Millard"} age ={55} hairColor={"Black"}/>
       <PersonCard firstName={"Smith"} lastName={"Jane"} age ={52} hairColor={"Black"}/>
 
