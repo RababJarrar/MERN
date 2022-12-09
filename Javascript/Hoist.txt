@@ -1,0 +1,16 @@
+1- Undefined
+
+2- magnet
+
+3- super cool
+
+4-chicken , half-chicken 
+
+5-Uncaught TypeError: mean is not a function
+
+6-Undefined ,rock, r&b, disco
+
+7-san jose, seatle, burbank, san jose
+
+8-{name: 'Chicago', students: 65, hiring: true}, error: assignment to constant variable.
+
