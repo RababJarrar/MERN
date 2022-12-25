@@ -1,31 +1,29 @@
-
 import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {Routes,Route,Link} from "react-router-dom";
+import {Routes,Route} from "react-router-dom";
 import AuthorForm from './views/AuthorForm';
 import Main from './views/Main';
 import Update from './views/Update';
-
 import { useNavigate } from "react-router-dom";
 
 function App() {
   const [Authors, setAuthors] = useState([]);
   const[errors,setErrors]=useState([]);
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);                            // ايش بستفيد منها ؟؟
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/authors')
-        .then(res =>{ 
-            setAuthors(res.data)
-            setLoaded(true);
-        });
-  }, [])
+  // useEffect(() => {                                                       // ايش بستفيد منها ؟؟
+  //   axios.get('http://localhost:8000/api/authors')
+  //       .then(res =>{ 
+  //           setAuthors(res.data)
+  //           setLoaded(true);
+  //       });
+  // }, [])
 
   const createAuthor =p=>{
     axios.post('http://localhost:8000/api/create/author',p)
-    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");  })
+    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");  })        //ايش بستفيد منها ؟؟
     .catch(err=>{
         const errorResponse = err.response.data.errors;
         const errorArray =[];
