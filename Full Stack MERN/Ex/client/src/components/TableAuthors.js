@@ -20,18 +20,16 @@ const TableAuthors = (props) => {
             <tr style={{height:'50px'}}>
               <td style={{border:' 1px solid black',width:'150px'}}>Author</td>
               <td style={{border:' 1px solid black',width:'200px'}}>Actions available</td>
-
             </tr>
             {props.authors.map((one, i) => 
                 <tr style={{height:'30px'}}>
                     <td key={i} style={{border:' 1px solid black'}}>{one.Name}</td>   
                     <td style={{border:' 1px solid black'}}>
                       <button><Link to={"/edit/"+one._id} style={{textDecoration: 'none'}}>Edit</Link></button>
-                      <button onClick={e=>{deleteAuthor(one._id)}}>Delete</button>
+                      <button onClick={e=>{deleteAuthor(one._id)}}>Delete</button>                      
                     </td>         
                 </tr>
-            )} 
-            
+            )}             
           </table>
     </div>
   )

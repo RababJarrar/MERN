@@ -22,7 +22,7 @@ const onSubmitHandler = e =>{
                         <label>Name</label><br/>
                         <input type="text" onChange={e => setName(e.target.value)} value={Name} name="Name"/>
                     </p>
-                    <input type="submit"/>  <button><Link to={"/"} style={{textDecoration: 'none'}}>Cancel </Link></button>     
+                    <input type="submit"/><button><Link to={"/"} style={{textDecoration: 'none'}}>Cancel </Link></button>     
             </form>            
         </div>
     )

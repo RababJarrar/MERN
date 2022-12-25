@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -6,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AuthorForm from './AuthorForm'
 
 const Update = () => {
-    const[Author , setAuthor]= useState("");
+    const[AuthorName , setAuthorName]= useState("");
     const [errors,setErrors]=useState([]);
     const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
@@ -15,13 +14,13 @@ const Update = () => {
     useEffect(()=>{
         axios.get('http://localhost:8000/api/author/'+id)
             .then(res =>{
-                setAuthor(res.data);
+                setAuthorName(res.data.Name);
                 setLoaded(true);
             })
     },[]);
 
-    const updateAuthor = k =>{
-        axios.put('http://localhost:8000/api/edit/author/'+id,k)
+    const updateAuthor = M =>{
+        axios.put('http://localhost:8000/api/edit/author/'+id,M)
         .then(res=>{console.log(res); navigate("/");})
         .catch(err=>{
             const errorResponse = err.response.data.errors;
@@ -36,7 +35,7 @@ const Update = () => {
   return (
     <div style={{width:'250px',textAlign:'left',margin:'auto'}}>
         {loaded && (            
-            <AuthorForm onSubmitProp={updateAuthor} initialName={Author.Name} errors={errors}/>            
+            <AuthorForm onSubmitProp={updateAuthor} initialName={AuthorName} errors={errors}/>            
         )}    
     </div>
   )
