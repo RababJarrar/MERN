@@ -24,10 +24,7 @@ const removeFromDom = productId => {
                   <button><Link to ={"/product/"+one._id+ "/edit"} key={i}>Edit</Link> </button> 
                   <DeleteButton productId={one._id} successCallback={()=>removeFromDom(one._id)}/>
                 </p>
-        
             )}
-
-
     </div>
   )
 }

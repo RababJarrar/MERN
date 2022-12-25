@@ -3,18 +3,14 @@ import axios from 'axios';
     
 export default props => {
     
-    const { productId, successCallback } = props;
-    
     const deleteProduct = e => {
-        axios.delete('http://localhost:8000/api/product/' + productId)
+        axios.delete('http://localhost:8000/api/product/' + props.productId)
             .then(res=>{
-                successCallback();
+                props.successCallback();
             })
     }
     
     return (
-        <button onClick={deleteProduct}>
-            Delete
-        </button>
+        <button onClick={deleteProduct}> Delete</button>
     )
 }
