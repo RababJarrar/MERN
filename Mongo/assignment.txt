@@ -1,0 +1,45 @@
+> use my_first_db
+
+> db.createCollection("students")
+
+> db.students.insert({name: "jafar", home_state: "Tulkarem", lucky_number: 1, birthday: {month: 2, day: 22, year: 98}})
+> db.students.insert({name: "jafar2", home_state: "Tulkarem", lucky_number: 1, birthday: {month: 2, day: 22, year: 98}})
+> db.students.insert({name: "jafar3", home_state: "Tulkarem", lucky_number: 1, birthday: {month: 2, day: 22, year: 98}})
+> db.students.insert({name: "jafar4", home_state: "Tulkarem", lucky_number: 1, birthday: {month: 2, day: 22, year: 98}})
+> db.students.insert({name: "jafar5", home_state: "Tulkarem", lucky_number: 1, birthday: {month: 2, day: 22, year: 98}})
+
+> db.students.find()
+
+> db.students.find({home_state: "California"})
+
+db.students.find({lucky_number: {$gt: 3}})
+
+db.students.find({lucky_number: {$lte: 10}})
+
+db.students.find({$and:[{lucky_number: {$lte: 9}},{lucky_number: {$gte: 1}}]})
+
+db.students.update({name:"jafar"}, {$push: {interests: 'Mongo'}})
+db.students.update({name:"jafar2"}, {$push: {interests: 'Mongo'}})
+db.students.update({name:"jafar3"}, {$push: {interests: 'Mongo'}})
+db.students.update({name:"jafar4"}, {$push: {interests: 'Mongo'}})
+db.students.update({name:"jafar5"}, {$push: {interests: 'Mongo'}})
+
+db.students.update({name:"jafar"}, {$push: {interests: 'Taxes'}})
+
+db.students.update({name:"jafar"}, {$pop: {interests: (1)}})
+
+db.students.remove({home_state: "California"})  
+
+db.students.remove({name: "jafar2"},true)    
+
+db.students.remove({lucky_number: {$gte: 1}},true)   
+
+db.students.update({}, {$set: {numberofbelts: 0}},{multi:true})
+
+db.students.update({}, {$set: {numberofbelts: 1}},{multi:true})
+
+db.students.update({}, {$set: {numberofbelts: 1}},{multi:true})
+
+db.students.update({}, {$rename: {numberofbelts: "beltsearned"}},{multi:true})
+
+db.students.update({}, {$unset: {lucky_number: ""}},{multi:true})
