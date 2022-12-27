@@ -1,26 +1,24 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import AuthorForm from './AuthorForm'
 
-const Update = () => {
-    const[AuthorName , setAuthorName]= useState("");
+const Update = (props) => {
+    const[Name , setName]= useState("");
     const [errors,setErrors]=useState([]);
-    const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
     const{id}=useParams();
     
     useEffect(()=>{
         axios.get('http://localhost:8000/api/author/'+id)
             .then(res =>{
-                setAuthorName(res.data.Name);
-                setLoaded(true);
+                setName(res.data.Name);
             })
     },[]);
 
-    const updateAuthor = M =>{
-        axios.put('http://localhost:8000/api/edit/author/'+id,M)
+    const updateAuthor = e =>{
+        e.preventDefault();
+        axios.put('http://localhost:8000/api/edit/author/'+id,{Name})
         .then(res=>{console.log(res); navigate("/");})
         .catch(err=>{
             const errorResponse = err.response.data.errors;
@@ -34,37 +32,49 @@ const Update = () => {
 
   return (
     <div style={{width:'250px',textAlign:'left',margin:'auto'}}>
-        {loaded && (            
-            <AuthorForm onSubmitProp={updateAuthor} initialName={AuthorName} errors={errors}/>            
-        )}    
+        <h1>Favorite authors</h1>
+        <p><Link to={"/"}>Home </Link></p>
+        <p>Update an author</p>
+            <form onSubmit={updateAuthor} style={{border:'1px solid black',width:'220px',height:'150px',textAlign:'left' ,paddingLeft:'20px'}}>
+                {errors.map((one, idx)=>
+                    <p key={idx}>{one}</p>
+                )}
+                <p>
+                <label>Name</label><br/>
+                <input type="text" onChange={e => setName(e.target.value)} value={Name} name="Name"/>
+                </p>
+                <input type="submit"/>  <button><Link to={"/"} style={{textDecoration: 'none'}}>Cancel </Link></button>     
+            </form>                
     </div>
   )
 }
 export default Update
 
 
-//ok without Reusing
+// Another Solution With Reusing
 // import axios from 'axios';
 // import React, { useEffect, useState } from 'react'
-// import { Link, useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 // import { useNavigate } from "react-router-dom";
+// import AuthorForm from './AuthorForm'
 
-// const Update = (props) => {
-//     const[Name , setName]= useState("");
+// const Update = () => {
+//     const[AuthorName , setAuthorName]= useState("");
 //     const [errors,setErrors]=useState([]);
+//     const [loaded, setLoaded] = useState(false);
 //     const navigate = useNavigate();
 //     const{id}=useParams();
     
 //     useEffect(()=>{
 //         axios.get('http://localhost:8000/api/author/'+id)
 //             .then(res =>{
-//                 setName(res.data.Name);
+//                 setAuthorName(res.data.Name);
+//                 setLoaded(true);
 //             })
 //     },[]);
 
-//     const updateAuthor = e =>{
-//         e.preventDefault();
-//         axios.put('http://localhost:8000/api/edit/author/'+id,{Name})
+//     const updateAuthor = M =>{
+//         axios.put('http://localhost:8000/api/edit/author/'+id,M)
 //         .then(res=>{console.log(res); navigate("/");})
 //         .catch(err=>{
 //             const errorResponse = err.response.data.errors;
@@ -78,21 +88,10 @@ export default Update
 
 //   return (
 //     <div style={{width:'250px',textAlign:'left',margin:'auto'}}>
-//         <h1>Favorite authors</h1>
-//         <p><Link to={"/"}>Home </Link></p>
-//         <p>Update an author</p>
-//             <form onSubmit={updateAuthor} style={{border:'1px solid black',width:'220px',height:'150px',textAlign:'left' ,paddingLeft:'20px'}}>
-//                 {errors.map((one, idx)=>
-//                     <p key={idx}>{one}</p>
-//                 )}
-//                 <p>
-//                 <label>Name</label><br/>
-//                 <input type="text" onChange={e => setName(e.target.value)} value={Name} name="Name"/>
-//                 </p>
-//                 <input type="submit"/>  <button><Link to={"/"} style={{textDecoration: 'none'}}>Cancel </Link></button>     
-//             </form>                
+//         {loaded && (            
+//             <AuthorForm onSubmitProp={updateAuthor} initialName={AuthorName} errors={errors}/>            
+//         )}    
 //     </div>
 //   )
 // }
 // export default Update
-

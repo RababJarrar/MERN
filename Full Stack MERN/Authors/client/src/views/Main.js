@@ -3,26 +3,25 @@ import React, { useEffect, useState } from 'react';
 import TableAuthors from '../components/TableAuthors';
 
 const Main = () => {
-    const[authors, Setauthors]=useState([]);
+    const[authors, setAuthors]=useState([]);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(()=>{
         axios.get('http://localhost:8000/api/authors')
         .then(res=>{
-            Setauthors(res.data);
+            setAuthors(res.data);
             setLoaded(true);
         })
         .catch(err => console.error(err));
     },[]);
 
-    const removeFromDom = j=>{
-      Setauthors(authors.filter(one=>one._id !=j));
+    const removefunc = j=>{
+      setAuthors(authors.filter(one=>one._id !=j));
     }
 
   return (
     <div>
-        {loaded && <TableAuthors authors={authors} removeFromDom={removeFromDom}/>}
-
+        {loaded && <TableAuthors authors={authors} remove={removefunc}/>}
     </div>
   )
 }

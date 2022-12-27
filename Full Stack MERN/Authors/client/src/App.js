@@ -10,20 +10,11 @@ import { useNavigate } from "react-router-dom";
 function App() {
   const [Authors, setAuthors] = useState([]);
   const[errors,setErrors]=useState([]);
-  // const [loaded, setLoaded] = useState(false);                            // ايش بستفيد منها ؟؟
   const navigate = useNavigate();
 
-  useEffect(() => {                                                       // ايش بستفيد منها ؟؟
-    axios.get('http://localhost:8000/api/authors')
-        .then(res =>{ 
-            setAuthors(res.data)
-            // setLoaded(true);
-        });
-  }, [])
-
-  const createAuthor =p=>{
-    axios.post('http://localhost:8000/api/create/author',p)
-    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");console.log("********"+Authors)  })        //ايش بستفيد منها ؟؟
+  const createAuthor =(auth_name)=>{
+    axios.post('http://localhost:8000/api/create/author',{Name:auth_name})
+    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");  }) 
     .catch(err=>{
         const errorResponse = err.response.data.errors;
         const errorArray =[];
@@ -48,7 +39,7 @@ function App() {
 export default App;
 
 
-//ok without Reusing
+//Another Solution Without Reusing
 // import './App.css';
 // import Main from './views/Main';
 // import React from 'react';

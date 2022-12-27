@@ -7,7 +7,7 @@ const TableAuthors = (props) => {
 
   const deleteAuthor=(hh)=>{
     axios.delete('http://localhost:8000/api/delete/author/'+hh)
-    .then(res=>{props.removeFromDom(hh)})
+    .then(res=>{props.remove(hh)})
     .catch(err => console.error(err));
   }
    
@@ -19,7 +19,7 @@ const TableAuthors = (props) => {
           <table style={{ borderCollapse: 'collapse'}}>
             <tr style={{height:'50px'}}>
               <td style={{border:' 1px solid black',width:'150px'}}>Author</td>
-              <td style={{border:' 1px solid black',width:'200px'}}>Actions available</td>
+              <td style={{border:' 1px solid black',width:'200px'}}>Actions Available</td>
             </tr>
             {props.authors.map((one, i) => 
                 <tr style={{height:'30px'}} key={i}>
