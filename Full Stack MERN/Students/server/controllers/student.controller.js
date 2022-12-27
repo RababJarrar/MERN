@@ -1,5 +1,5 @@
 
-//2
+//3_name,create
 const { Student } = require('../models/student.model');
 
 module.exports.createStudent = (request, response)=>{
@@ -9,7 +9,7 @@ module.exports.createStudent = (request, response)=>{
         Status
     })
     .then(student =>response.json(student))
-    // .catch(err =>response.json(err));
+    .catch(err =>response.status(400).json(err));
 }
 
 module.exports.getAllStudents = (request, response) => {
@@ -21,7 +21,7 @@ module.exports.getAllStudents = (request, response) => {
 module.exports.updateStudent = (request, response) => {
     Student.findOneAndUpdate({_id: request.params.id}, request.body, {new:true , runValidators: true} )
         .then(updateStudent => response.json(updateStudent))
-        .catch(err => response.json(err))
+        .catch(err => response.status(400).json(err))
 }
 
 module.exports.deleteStudent = (request, response) => {

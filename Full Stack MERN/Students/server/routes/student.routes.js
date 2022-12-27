@@ -1,5 +1,5 @@
 
-//3
+//4_name_method
 const StudentController = require('../controllers/student.controller');
 module.exports = function (app){
     app.post('/api/create/student',StudentController.createStudent);

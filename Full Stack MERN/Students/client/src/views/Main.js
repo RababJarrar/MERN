@@ -4,46 +4,50 @@ import Form from '../components/Form';
 import List from '../components/List';
 
 const Main = () => {
-    const[students, setstudents]=useState([]);
+    const[students, setStudents]=useState([]);
     const [loaded, setLoaded] = useState(false);
+    const[errors,setErrors]=useState([]);
     const testingArray=[];
     const passArray=[];
 
     useEffect(()=>{
         axios.get('http://localhost:8000/api/students')
         .then(res=>{
-            setstudents(res.data);
+            setStudents(res.data);
             setLoaded(true);
         })
         .catch(err => console.error(err));
     },[]);
 
-    const removefunc = j=>{
-        axios.delete('http://localhost:8000/api/delete/student/'+j)
-        .then(res=>
-          setstudents(students.filter (one=>one._id!=j)))
-    }
-
-      const editfunc=(id)=>{
-      axios.put('http://localhost:8000/api/edit/student/'+id,  {Status:"pass"} )
-        .then(res=>{
-          const objindex =students.findIndex((obj=>obj._id ==id));
-          const s1 =[...students.slice(0,objindex),{ ...students[objindex],"Status":"pass"}, ...students.slice(objindex+1)]; //+1
-          setstudents(s1);
-        })      
-    }
-
-    const createAuthor =p=>{
+    const createStudent =(name_stu)=>{
       axios.post('http://localhost:8000/api/create/student',{
-         Name:p ,
+         Name:name_stu ,
          Status:"testing"})
-      .then(res=>{setstudents([...students,res.data]);
-      console.log(res.data);
-      })        
+      .then(res=>{setStudents([...students,res.data]);})        
       .catch(err=>{
-          console.log(err)
+        const errorResponse = err.response.data.errors;
+        const errorArray =[];
+        for (const key of Object.keys(errorResponse)){
+            errorArray.push(errorResponse[key].message)
+        }
+        setErrors(errorArray);
       })  
     }
+  
+    const editfun=(id)=>{
+    axios.put('http://localhost:8000/api/edit/student/'+id,  {Status:"pass"} )
+      .then(res=>{
+          const objindex =students.findIndex((obj=>obj._id ==id));
+          const s1 =[...students.slice(0,objindex),{ ...students[objindex],"Status":"pass"}, ...students.slice(objindex+1)]; 
+          setStudents(s1);
+      })      
+    }
+    
+    const removefun = j=>{
+      axios.delete('http://localhost:8000/api/delete/student/'+j)
+      .then(res=>
+        setStudents(students.filter (one=>one._id!=j)))
+  }
 
     students.map((one,i)=>{
     if (one.Status =="testing"){
@@ -56,10 +60,10 @@ const Main = () => {
 
   return (
     <div>
-      <Form onSubmitProp={createAuthor} initialName="" /><hr/>
+      <Form onSubmitProp={createStudent} initialName="" errors={errors} /><hr/>
       <div style={{display:"flex",margin:'auto',width:"700px"}}>
-        <div style={{ border:'.5px solid black',flex:"1"}}>{loaded && <List students={testingArray} edit={editfunc} remove={removefunc}/>}</div>
-        <div style={{ border:'.5px solid black',flex:"1"}}>{loaded && <List students={passArray} edit={editfunc} remove={removefunc}/>}</div>
+        <div style={{ border:'.5px solid black',flex:"1"}}>{loaded && <List students={testingArray} edit={editfun}/>}</div>
+        <div style={{ border:'.5px solid black',flex:"1"}}>{loaded && <List students={passArray} remove={removefun}/>}</div>
       </div>
     </div>
   )
