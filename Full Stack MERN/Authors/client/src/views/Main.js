@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TableAuthors from '../components/TableAuthors';
 
 const Main = () => {
-    const[authors, Setauthors]=useState("")
+    const[authors, Setauthors]=useState([]);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(()=>{

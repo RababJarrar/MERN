@@ -13,17 +13,17 @@ function App() {
   // const [loaded, setLoaded] = useState(false);                            // ايش بستفيد منها ؟؟
   const navigate = useNavigate();
 
-  // useEffect(() => {                                                       // ايش بستفيد منها ؟؟
-  //   axios.get('http://localhost:8000/api/authors')
-  //       .then(res =>{ 
-  //           setAuthors(res.data)
-  //           setLoaded(true);
-  //       });
-  // }, [])
+  useEffect(() => {                                                       // ايش بستفيد منها ؟؟
+    axios.get('http://localhost:8000/api/authors')
+        .then(res =>{ 
+            setAuthors(res.data)
+            // setLoaded(true);
+        });
+  }, [])
 
   const createAuthor =p=>{
     axios.post('http://localhost:8000/api/create/author',p)
-    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");  })        //ايش بستفيد منها ؟؟
+    .then(res=>{setAuthors([...Authors,res.data]);navigate("/");console.log("********"+Authors)  })        //ايش بستفيد منها ؟؟
     .catch(err=>{
         const errorResponse = err.response.data.errors;
         const errorArray =[];

@@ -22,8 +22,8 @@ const TableAuthors = (props) => {
               <td style={{border:' 1px solid black',width:'200px'}}>Actions available</td>
             </tr>
             {props.authors.map((one, i) => 
-                <tr style={{height:'30px'}}>
-                    <td key={i} style={{border:' 1px solid black'}}>{one.Name}</td>   
+                <tr style={{height:'30px'}} key={i}>
+                    <td  style={{border:' 1px solid black'}}>{one.Name}</td>   
                     <td style={{border:' 1px solid black'}}>
                       <button><Link to={"/edit/"+one._id} style={{textDecoration: 'none'}}>Edit</Link></button>
                       <button onClick={e=>{deleteAuthor(one._id)}}>Delete</button>                      
